@@ -155,17 +155,8 @@ public class MazeController {
     @FXML
     public void initialize() {
 
-
-
         roboPane.setFocusTraversable(true);
         roboPane.requestFocus();
-
-        System.out.println("Is roboPane focused? " + roboPane.isFocused());
-        System.out.println("Is tab focused? " + tabPane.isFocused());
-
-
-
-
 
         // Set the key event handler on the mazePane (or root node)
         roboPane.setOnKeyPressed(event -> handleKeyPress(event));
