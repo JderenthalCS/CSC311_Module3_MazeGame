@@ -22,7 +22,8 @@ public class MazeController {
     public Pane roboPane = new Pane();
 
     @FXML
-    private TabPane tabPane;
+    private TabPane tabPane = new TabPane();
+
 
     @FXML
     private Tab mainMenuTab;
@@ -53,7 +54,15 @@ public class MazeController {
      */
     @FXML
     void mazeButton1Click(ActionEvent event) throws IOException {
-        tabPane.getSelectionModel().select(1);
+//        tabPane.getSelectionModel().select(1);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView1.fxml"));
+        Parent tabContent = fxmlLoader.load();
+
+
+        Tab tab = new Tab("Easy Maze"); // Create a new Tab
+        tab.setContent(tabContent); // Set the loaded FXML as the content
+
+        tabPane.getTabs().add(tab);
 
         //filter tab pane to not move with key inputs
         tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
@@ -73,7 +82,14 @@ public class MazeController {
      */
     @FXML
     void mazeButton2Click(ActionEvent event) throws IOException {
-        tabPane.getSelectionModel().select(2);
+//        tabPane.getSelectionModel().select(2);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView2.fxml"));
+        Parent tabContent = fxmlLoader.load();
+
+        Tab tab = new Tab("Hard Maze"); // Create a new Tab
+        tab.setContent(tabContent); // Set the loaded FXML as the content
+
+        tabPane.getTabs().add(tab);
 
         //filter tab pane to not move with key inputs
         tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
