@@ -8,12 +8,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="tabPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311maze.MazeController">
+<TabPane fx:id="tabPane" xmlns="http://javafx.com/javafx/8.0.171"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.example.csc311maze.MazeController">
+
    <tabs>
-
-
       <!-- Main Menu Tab -->
-      <Tab text="Main Menu">
+      <Tab fx:id="mainMenuTab" text="Main Menu">
          <content>
             <VBox alignment="CENTER" prefHeight="600" prefWidth="800" spacing="30.0" style="-fx-background-color: #20283E;">
                <children>
@@ -23,27 +24,26 @@
                      </font>
                   </Label>
 
-                  <Button fx:id="mazeButton1" onAction="#mazeButton1Click" prefHeight="29.0" prefWidth="95.0" text="Load Maze 1" />
-                  <Button fx:id="mazeButton2" onAction="#mazeButton2Click" prefHeight="31.0" prefWidth="94.0" text="Load Maze 2" />
+                  <Button fx:id="mazeButton1" onAction="#mazeButton1Click" text="Load Maze 1" />
+                  <Button fx:id="mazeButton2" onAction="#mazeButton2Click" text="Load Maze 2" />
                </children>
             </VBox>
          </content>
       </Tab>
 
-
       <!-- Maze 1 Tab -->
-      <Tab text="Maze 1">
+      <Tab fx:id="maze1Tab" text="Maze 1">
          <content>
-            <AnchorPane>
+            <AnchorPane fx:id="maze1Pane">
                <fx:include source="mazeView1.fxml" />
             </AnchorPane>
          </content>
       </Tab>
 
       <!-- Maze 2 Tab -->
-      <Tab text="Maze 2">
+      <Tab fx:id="maze2Tab" text="Maze 2">
          <content>
-            <AnchorPane>
+            <AnchorPane fx:id="maze2Pane">
                <fx:include source="mazeView2.fxml" />
             </AnchorPane>
          </content>
@@ -51,3 +51,4 @@
 
    </tabs>
 </TabPane>
+
