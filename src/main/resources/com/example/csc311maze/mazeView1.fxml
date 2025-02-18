@@ -26,7 +26,7 @@
       
             
             <!--Robot Image-->
-            <ImageView fx:id="robotImageView" fitHeight="40.0" fitWidth="38.0" layoutX="1.0" layoutY="3.0" onKeyPressed="#initialize" preserveRatio="true">
+            <ImageView fx:id="robotImageView" fitHeight="40.0" fitWidth="38.0" layoutX="1.0" layoutY="-5.0"  preserveRatio="true">
                <image>
                   <Image url="@../../../robot.png" />
                </image>

@@ -1,5 +1,6 @@
 package com.example.csc311maze;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,11 @@ import java.io.IOException;
 
 public class MazeController {
 
-    public Pane roboPane = new Pane();
+
+
+
+    @FXML
+     public Pane roboPane = new Pane();
 
     @FXML
     private TabPane tabPane = new TabPane();
@@ -54,22 +59,37 @@ public class MazeController {
      */
     @FXML
     void mazeButton1Click(ActionEvent event) throws IOException {
-//        tabPane.getSelectionModel().select(1);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView1.fxml"));
-        Parent tabContent = fxmlLoader.load();
-
-
-        Tab tab = new Tab("Easy Maze"); // Create a new Tab
-        tab.setContent(tabContent); // Set the loaded FXML as the content
-
-        tabPane.getTabs().add(tab);
-
-        //filter tab pane to not move with key inputs
-        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
-                e.consume(); // Prevents default behavior
+        // Check if "Hard Maze" tab already exists
+        for (Tab existingTab : tabPane.getTabs()) {
+            if ("Easy Maze".equals(existingTab.getText())) {
+                tabPane.getSelectionModel().select(existingTab); // Select existing tab
+                return;
             }
-        });
+        }
+
+        // Load FXML for Maze 2
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView1.fxml"));
+        Parent tabContent1 = fxmlLoader.load();
+
+        // Create a new Tab
+        Tab tab = new Tab("Easy Maze");
+        tab.setContent(tabContent1);
+
+        // Add the tab and select it
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
+
+//        // Apply key event filter to the SCENE to prevent arrow key scrolling
+        Scene scene = tabPane.getScene();
+        if (scene != null) {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                if (e.getCode().isArrowKey()) {
+                    e.consume(); // Prevents default behavior
+                }
+            });
+        } else {
+            System.out.println("Scene is null, cannot add key filter.");
+        }
 
 
 
@@ -82,57 +102,90 @@ public class MazeController {
      */
     @FXML
     void mazeButton2Click(ActionEvent event) throws IOException {
-//        tabPane.getSelectionModel().select(2);
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView2.fxml"));
-        Parent tabContent = fxmlLoader.load();
-
-        Tab tab = new Tab("Hard Maze"); // Create a new Tab
-        tab.setContent(tabContent); // Set the loaded FXML as the content
-
-        tabPane.getTabs().add(tab);
-
-        //filter tab pane to not move with key inputs
-        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
-                e.consume(); // Prevents default behavior
+        // Check if "Hard Maze" tab already exists
+        for (Tab existingTab : tabPane.getTabs()) {
+            if ("Hard Maze".equals(existingTab.getText())) {
+                tabPane.getSelectionModel().select(existingTab); // Select existing tab
+                return;
             }
-        });
+        }
+
+        // Load FXML for Maze 2
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView2.fxml"));
+        Parent tabContent2 = fxmlLoader.load();
+
+        // Create a new Tab
+        Tab tab = new Tab("Hard Maze");
+        tab.setContent(tabContent2);
+
+        // Add the tab and select it
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
+
+        // Apply key event filter to the SCENE to prevent arrow key scrolling
+        Scene scene = tabPane.getScene();
+        if (scene != null) {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                if (e.getCode().isArrowKey()) {
+                    e.consume(); // Prevents default behavior
+                }
+            });
+        } else {
+            System.out.println("Scene is null, cannot add key filter.");
+        }
     }
 
 
     /**
      * Allows 'back' button to switch from maze1 -> main menu
      */
-    @FXML
-    private void backToMainMenu(){
-        tabPane.getSelectionModel().select(mainMenuTab);
-
-        //filter tab pane to not move with key inputs
-        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
-                e.consume(); // Prevents default behavior
-            }
-        });
-
-    }
+//    @FXML
+//    private void backToMainMenu(){
+//        tabPane.getSelectionModel().select(mainMenuTab);
+//
+//        //filter tab pane to not move with key inputs
+//        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+//            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
+//                e.consume(); // Prevents default behavior
+//            }
+//        });
+//
+//    }
 
     @FXML
     public void initialize() {
+
+
+
+        roboPane.setFocusTraversable(true);
+        roboPane.requestFocus();
+
+        System.out.println("Is roboPane focused? " + roboPane.isFocused());
+        System.out.println("Is tab focused? " + tabPane.isFocused());
+
+
+
+
+
         // Set the key event handler on the mazePane (or root node)
         roboPane.setOnKeyPressed(event -> handleKeyPress(event));
 
-        // Ensure pane is focusable to receive key events
-        roboPane.setFocusTraversable(true);
+
+
+
     }
 
+    @FXML
     private void handleKeyPress(KeyEvent event) {
-        if (event.getCode() == KeyCode.RIGHT) {
+        System.out.println("Key pressed: " + event.getCode());
+
+        if (event.getCode() == KeyCode.D) {
             roboPane.setLayoutX(roboPane.getLayoutX() + 10); // Move right by 10 pixels
-        } else if (event.getCode() == KeyCode.LEFT) {
+        } else if (event.getCode() == KeyCode.A) {
             roboPane.setLayoutX(roboPane.getLayoutX() - 10); // Move left by 10 pixels
-        } else if (event.getCode() == KeyCode.UP) {
+        } else if (event.getCode() == KeyCode.W) {
             roboPane.setLayoutY(roboPane.getLayoutY() - 10); // Move up by 10 pixels
-        } else if (event.getCode() == KeyCode.DOWN) {
+        } else if (event.getCode() == KeyCode.S) {
             roboPane.setLayoutY(roboPane.getLayoutY() + 10); // Move down by 10 pixels
         }
     }
