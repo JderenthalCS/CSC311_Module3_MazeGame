@@ -24,9 +24,9 @@
       <Pane fx:id="roboPane" layoutX="38.0" layoutY="35.0" onKeyPressed="#initialize" prefHeight="44.0" prefWidth="40.0">
          <children>
       
-      
+            
             <!--Robot Image-->
-            <ImageView fx:id="robotImageView" fitHeight="40.0" fitWidth="38.0" onKeyPressed="#initialize" preserveRatio="true">
+            <ImageView fx:id="robotImageView" fitHeight="40.0" fitWidth="38.0" layoutX="1.0" layoutY="3.0" onKeyPressed="#initialize" preserveRatio="true">
                <image>
                   <Image url="@../../../robot.png" />
                </image>

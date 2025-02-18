@@ -22,7 +22,8 @@ public class MazeController {
     public Pane roboPane = new Pane();
 
     @FXML
-    private TabPane tabPane;
+    private TabPane tabPane = new TabPane();
+
 
     @FXML
     private Tab mainMenuTab;
@@ -53,7 +54,24 @@ public class MazeController {
      */
     @FXML
     void mazeButton1Click(ActionEvent event) throws IOException {
-        tabPane.getSelectionModel().select(1);
+//        tabPane.getSelectionModel().select(1);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView1.fxml"));
+        Parent tabContent = fxmlLoader.load();
+
+
+        Tab tab = new Tab("Easy Maze"); // Create a new Tab
+        tab.setContent(tabContent); // Set the loaded FXML as the content
+
+        tabPane.getTabs().add(tab);
+
+        //filter tab pane to not move with key inputs
+        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
+                e.consume(); // Prevents default behavior
+            }
+        });
+
+
 
     }
 
@@ -64,8 +82,23 @@ public class MazeController {
      */
     @FXML
     void mazeButton2Click(ActionEvent event) throws IOException {
-        tabPane.getSelectionModel().select(2);
+//        tabPane.getSelectionModel().select(2);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView2.fxml"));
+        Parent tabContent = fxmlLoader.load();
+
+        Tab tab = new Tab("Hard Maze"); // Create a new Tab
+        tab.setContent(tabContent); // Set the loaded FXML as the content
+
+        tabPane.getTabs().add(tab);
+
+        //filter tab pane to not move with key inputs
+        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
+                e.consume(); // Prevents default behavior
+            }
+        });
     }
+
 
     /**
      * Allows 'back' button to switch from maze1 -> main menu
@@ -73,39 +106,13 @@ public class MazeController {
     @FXML
     private void backToMainMenu(){
         tabPane.getSelectionModel().select(mainMenuTab);
-    }
 
-    //method to make a new window
-    @FXML
-    void maze1Window() throws IOException { //makes sa new window for the easy maze with fxml file
-        Stage stage = new Stage();
-        stage.setTitle("Easy Maze");
-
-        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("mazeView1.fxml"));
-        Parent root = fxmlLoader.load();
-
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setScene(scene);
-        stage.show();
-
-
-
-    }
-    @FXML
-    void maze2Window() throws IOException { //makes sa new window for the hard maze with fxml file
-        Stage stage = new Stage();
-        stage.setTitle("Hard Maze");
-
-        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("maze2Window.fxml"));
-        Parent root = fxmlLoader.load();
-
-        Scene scene = new Scene(root, 800, 600);
-
-        stage.setScene(scene);
-        stage.show();
-
-
+        //filter tab pane to not move with key inputs
+        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
+                e.consume(); // Prevents default behavior
+            }
+        });
 
     }
 
