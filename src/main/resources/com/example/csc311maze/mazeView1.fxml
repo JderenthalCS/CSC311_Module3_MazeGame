@@ -16,22 +16,22 @@
             <Image url="@../../../easyMaze.png" />
          </image>
       </ImageView>
-      <Button fx:id="backButton1" layoutX="18.0" layoutY="547.0" mnemonicParsing="false" onAction="#backToMainMenu" style="-fx-background-radius: 50;" text="↩">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
       <Pane fx:id="roboPane" layoutX="38.0" layoutY="35.0" onKeyPressed="#initialize" prefHeight="44.0" prefWidth="40.0">
          <children>
       
             
             <!--Robot Image-->
-            <ImageView fx:id="robotImageView" fitHeight="40.0" fitWidth="38.0" layoutX="1.0" layoutY="-5.0"  preserveRatio="true">
+            <ImageView fx:id="robotImageView" fitHeight="40.0" fitWidth="38.0" layoutX="1.0" layoutY="-5.0" preserveRatio="true">
                <image>
                   <Image url="@../../../robot.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
+      <Button fx:id="backButton1" layoutX="18.0" layoutY="547.0" mnemonicParsing="false" onAction="#backToMainMenu" style="-fx-background-radius: 50;" text="↩">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
