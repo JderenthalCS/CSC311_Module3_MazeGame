@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -19,7 +21,17 @@ public class MazeController {
 
     public Pane roboPane = new Pane();
 
+    @FXML
+    private TabPane tabPane;
 
+    @FXML
+    private Tab mainMenuTab;
+
+    @FXML
+    private Tab maze1Tab;
+
+    @FXML
+    private Tab maze2Tab;
 
     @FXML
     public ImageView m2Robot;
@@ -34,17 +46,33 @@ public class MazeController {
     @FXML
     private Button mazeButton2;
 
+    /**
+     *  Allows button to switch from Main Menu (mainMenu.fxml) and Maze 1 (mazeView1.fxml)
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void mazeButton1Click(ActionEvent event) throws IOException {
-        maze1Window();
-
+        tabPane.getSelectionModel().select(1);
 
     }
 
+    /**
+     * Allows button to switch from Main Menu (mainMenu.fxml) and Maze 2 (mazeView2.fxml)
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void mazeButton2Click(ActionEvent event) throws IOException {
-        maze2Window();
+        tabPane.getSelectionModel().select(2);
+    }
 
+    /**
+     * Allows 'back' button to switch from maze1 -> main menu
+     */
+    @FXML
+    private void backToMainMenu(){
+        tabPane.getSelectionModel().select(mainMenuTab);
     }
 
     //method to make a new window
@@ -53,7 +81,7 @@ public class MazeController {
         Stage stage = new Stage();
         stage.setTitle("Easy Maze");
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("maze1Window.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("mazeView1.fxml"));
         Parent root = fxmlLoader.load();
 
         Scene scene = new Scene(root, 800, 600);
@@ -102,5 +130,8 @@ public class MazeController {
         }
     }
 
+    public void backToMainMenu(ActionEvent actionEvent) {
+
+    }
 }
 
