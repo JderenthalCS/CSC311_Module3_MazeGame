@@ -3,22 +3,23 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311maze.MazeController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311maze.MazeController">
    <children>
-      <!-- mazeImageView1 -->
-      <ImageView fx:id="mazeImageView" fitHeight="600.0" fitWidth="800.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="400.0" fitWidth="543.0" layoutX="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../easyMaze.png" />
          </image>
       </ImageView>
-
-            <!-- robotImageView1-->
-      <ImageView fx:id="robotImageView" fitHeight="40.0" fitWidth="38.0" layoutX="39.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../robot.png" />
-         </image>
-      </ImageView>
+      <Pane fx:id="roboPane" layoutX="49.0" layoutY="19.0" onKeyPressed="#initialize" prefHeight="40.0" prefWidth="33.0">
+         <children>
+            <ImageView fx:id="m1Robot" fitHeight="40.0" fitWidth="33.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../robot.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

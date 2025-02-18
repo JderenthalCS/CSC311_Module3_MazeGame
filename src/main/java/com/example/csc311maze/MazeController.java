@@ -6,22 +6,33 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
-import javax.swing.text.html.ImageView;
+
 import java.io.IOException;
 
 public class MazeController {
+
+    public Pane roboPane = new Pane();
+
+
+
+    @FXML
+    public ImageView m2Robot;
+
+    @FXML
+    public ImageView m1Robot;
+
 
     @FXML
     private Button mazeButton1;
 
     @FXML
     private Button mazeButton2;
-
-
-
 
     @FXML
     void mazeButton1Click(ActionEvent event) throws IOException {
@@ -38,9 +49,9 @@ public class MazeController {
 
     //method to make a new window
     @FXML
-    void maze1Window() throws IOException {
+    void maze1Window() throws IOException { //makes sa new window for the easy maze with fxml file
         Stage stage = new Stage();
-        stage.setTitle("Maze");
+        stage.setTitle("Easy Maze");
 
         FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("maze1Window.fxml"));
         Parent root = fxmlLoader.load();
@@ -54,9 +65,9 @@ public class MazeController {
 
     }
     @FXML
-    void maze2Window() throws IOException {
+    void maze2Window() throws IOException { //makes sa new window for the hard maze with fxml file
         Stage stage = new Stage();
-        stage.setTitle("Maze");
+        stage.setTitle("Hard Maze");
 
         FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("maze2Window.fxml"));
         Parent root = fxmlLoader.load();
@@ -71,8 +82,25 @@ public class MazeController {
     }
 
     @FXML
-    void onRightArrowClick(ActionEvent event) throws IOException {
+    public void initialize() {
+        // Set the key event handler on the mazePane (or root node)
+        roboPane.setOnKeyPressed(event -> handleKeyPress(event));
 
-
+        // Ensure pane is focusable to receive key events
+        roboPane.setFocusTraversable(true);
     }
+
+    private void handleKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.RIGHT) {
+            roboPane.setLayoutX(roboPane.getLayoutX() + 10); // Move right by 10 pixels
+        } else if (event.getCode() == KeyCode.LEFT) {
+            roboPane.setLayoutX(roboPane.getLayoutX() - 10); // Move left by 10 pixels
+        } else if (event.getCode() == KeyCode.UP) {
+            roboPane.setLayoutY(roboPane.getLayoutY() - 10); // Move up by 10 pixels
+        } else if (event.getCode() == KeyCode.DOWN) {
+            roboPane.setLayoutY(roboPane.getLayoutY() + 10); // Move down by 10 pixels
+        }
+    }
+
 }
+
