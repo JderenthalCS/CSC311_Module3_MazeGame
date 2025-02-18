@@ -55,6 +55,15 @@ public class MazeController {
     void mazeButton1Click(ActionEvent event) throws IOException {
         tabPane.getSelectionModel().select(1);
 
+        //filter tab pane to not move with key inputs
+        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
+                e.consume(); // Prevents default behavior
+            }
+        });
+
+
+
     }
 
     /**
@@ -65,7 +74,15 @@ public class MazeController {
     @FXML
     void mazeButton2Click(ActionEvent event) throws IOException {
         tabPane.getSelectionModel().select(2);
+
+        //filter tab pane to not move with key inputs
+        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
+                e.consume(); // Prevents default behavior
+            }
+        });
     }
+
 
     /**
      * Allows 'back' button to switch from maze1 -> main menu
@@ -73,6 +90,14 @@ public class MazeController {
     @FXML
     private void backToMainMenu(){
         tabPane.getSelectionModel().select(mainMenuTab);
+
+        //filter tab pane to not move with key inputs
+        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
+                e.consume(); // Prevents default behavior
+            }
+        });
+
     }
 
     //method to make a new window
