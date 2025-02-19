@@ -144,7 +144,7 @@ public class MazeController {
     @FXML
     void onCarMaze1ButtonClick(ActionEvent event) throws IOException {
         for (Tab existingTab : tabPane.getTabs()) {
-            if ("Car Maze".equals(existingTab.getText())) {
+            if ("Easy Car Maze".equals(existingTab.getText())) {
                 tabPane.getSelectionModel().select(existingTab); // Select existing tab
                 return;
             }
@@ -156,6 +156,41 @@ public class MazeController {
 
         // Create a new Tab
         Tab tab = new Tab("Easy Car Maze");
+        tab.setContent(carContent);
+
+        // Add the tab and select it
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
+
+//        // Apply key event filter to the SCENE to prevent arrow key scrolling
+        Scene scene = tabPane.getScene();
+        if (scene != null) {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                if (e.getCode().isArrowKey()) {
+                    e.consume(); // Prevents default behavior
+                }
+            });
+        } else {
+            System.out.println("Scene is null, cannot add key filter.");
+        }
+
+    }
+
+    @FXML
+    void onCarMaze2ButtonClick(ActionEvent event) throws IOException {
+        for (Tab existingTab : tabPane.getTabs()) {
+            if ("Hard Car Maze".equals(existingTab.getText())) {
+                tabPane.getSelectionModel().select(existingTab); // Select existing tab
+                return;
+            }
+        }
+
+        // Load FXML for Car Maze 1
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CarMazeView2.fxml"));
+        Parent carContent = fxmlLoader.load();
+
+        // Create a new Tab
+        Tab tab = new Tab("Hard Car Maze");
         tab.setContent(carContent);
 
         // Add the tab and select it
