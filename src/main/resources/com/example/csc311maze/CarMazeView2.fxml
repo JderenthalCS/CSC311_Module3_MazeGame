@@ -18,7 +18,7 @@
                 <Image url="@../../../hardMaze.png" />
             </image>
         </ImageView>
-        <Pane fx:id="jeepWrangler" focusTraversable="true" layoutX="6.0" layoutY="348.0" maxHeight="50" maxWidth="50" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#initializeCar" prefHeight="50.0" prefWidth="50.0" scaleX="0.45" scaleY="0.45" scaleZ="0.45">
+        <Pane fx:id="jeepWrangler" focusTraversable="true" layoutX="6.0" layoutY="348.0" maxHeight="67.0" maxWidth="71.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#initializeCar" prefHeight="67.0" prefWidth="71.0" scaleX="0.45" scaleY="0.45" scaleZ="0.45">
             <children>
                 <Rectangle arcHeight="10.0" arcWidth="5.0" fill="#313f4d" height="62.0" layoutX="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="60.0" />
                 <Line endX="24.0" endY="-3.0" layoutX="50.0" layoutY="-10.0" startX="24.0" startY="51.0" />

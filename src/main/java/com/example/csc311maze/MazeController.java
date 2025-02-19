@@ -260,16 +260,16 @@ public class MazeController {
 
         if (event.getCode() == KeyCode.D) {
             jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() + 10); // Move right by 10 pixels
-            jeepWrangler.setRotate(270);
+            jeepWrangler.setRotate(270); //rotation for the car on key press
         } else if (event.getCode() == KeyCode.A) {
             jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() - 10);// Move left by 10 pixels
-            jeepWrangler.setRotate(90);
+            jeepWrangler.setRotate(90);//rotation for the car on key press
         } else if (event.getCode() == KeyCode.W) {
             jeepWrangler.setLayoutY(jeepWrangler.getLayoutY() - 10); // Move up by 10 pixels
-            jeepWrangler.setRotate(180);
+            jeepWrangler.setRotate(180);//rotation for the car on key press
         } else if (event.getCode() == KeyCode.S) {
             jeepWrangler.setLayoutY(jeepWrangler.getLayoutY() + 10); // Move down by 10 pixels
-            jeepWrangler.setRotate(0);
+            jeepWrangler.setRotate(0);//rotation for the car on key press
         }
     }
 
