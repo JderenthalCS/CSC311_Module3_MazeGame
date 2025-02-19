@@ -27,7 +27,14 @@ public class MazeController {
      public Pane roboPane = new Pane();
 
     @FXML
+    public Pane jeepWrangler = new Pane();
+
+    @FXML
     private TabPane tabPane = new TabPane();
+
+
+    @FXML
+    private Button carMazeButton;
 
 
     @FXML
@@ -67,7 +74,7 @@ public class MazeController {
             }
         }
 
-        // Load FXML for Maze 2
+        // Load FXML for Maze 1
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView1.fxml"));
         Parent tabContent1 = fxmlLoader.load();
 
@@ -134,23 +141,82 @@ public class MazeController {
             System.out.println("Scene is null, cannot add key filter.");
         }
     }
+    @FXML
+    void onCarMaze1ButtonClick(ActionEvent event) throws IOException {
+        for (Tab existingTab : tabPane.getTabs()) {
+            if ("Car Maze".equals(existingTab.getText())) {
+                tabPane.getSelectionModel().select(existingTab); // Select existing tab
+                return;
+            }
+        }
+
+        // Load FXML for Car Maze 1
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CarMazeView1.fxml"));
+        Parent carContent = fxmlLoader.load();
+
+        // Create a new Tab
+        Tab tab = new Tab("Easy Car Maze");
+        tab.setContent(carContent);
+
+        // Add the tab and select it
+        tabPane.getTabs().add(tab);
+        tabPane.getSelectionModel().select(tab);
+
+//        // Apply key event filter to the SCENE to prevent arrow key scrolling
+        Scene scene = tabPane.getScene();
+        if (scene != null) {
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+                if (e.getCode().isArrowKey()) {
+                    e.consume(); // Prevents default behavior
+                }
+            });
+        } else {
+            System.out.println("Scene is null, cannot add key filter.");
+        }
+
+    }
 
 
     /**
      * Allows 'back' button to switch from maze1 -> main menu
      */
-//    @FXML
-//    private void backToMainMenu(){
-//        tabPane.getSelectionModel().select(mainMenuTab);
-//
-//        //filter tab pane to not move with key inputs
-//        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-//            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
-//                e.consume(); // Prevents default behavior
-//            }
-//        });
-//
-//    }
+    @FXML
+    private void backToMainMenu(){
+        tabPane.getSelectionModel().select(mainMenuTab);
+
+        //filter tab pane to not move with key inputs
+        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.RIGHT || e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.UP || e.getCode() == KeyCode.DOWN) {
+                e.consume(); // Prevents default behavior
+            }
+        });
+
+    }
+
+    @FXML
+    public void initializeCar() {
+
+        jeepWrangler.setFocusTraversable(true);
+        jeepWrangler.requestFocus();
+
+        // Set the key event handler on the mazePane (or root node)
+        jeepWrangler.setOnKeyPressed(event -> handleCarKeyPress(event));
+
+    }
+    @FXML
+    private void handleCarKeyPress(KeyEvent event) {
+        System.out.println("Key pressed: " + event.getCode());
+
+        if (event.getCode() == KeyCode.D) {
+            jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() + 10); // Move right by 10 pixels
+        } else if (event.getCode() == KeyCode.A) {
+            jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() - 10); // Move left by 10 pixels
+        } else if (event.getCode() == KeyCode.W) {
+            jeepWrangler.setLayoutY(jeepWrangler.getLayoutY() - 10); // Move up by 10 pixels
+        } else if (event.getCode() == KeyCode.S) {
+            jeepWrangler.setLayoutY(jeepWrangler.getLayoutY() + 10); // Move down by 10 pixels
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -161,12 +227,10 @@ public class MazeController {
         // Set the key event handler on the mazePane (or root node)
         roboPane.setOnKeyPressed(event -> handleKeyPress(event));
 
-
-
-
     }
 
-    @FXML
+
+
     private void handleKeyPress(KeyEvent event) {
         System.out.println("Key pressed: " + event.getCode());
 
@@ -181,8 +245,13 @@ public class MazeController {
         }
     }
 
-    public void backToMainMenu(ActionEvent actionEvent) {
 
-    }
+
+
+
+
+
+
+
 }
 
