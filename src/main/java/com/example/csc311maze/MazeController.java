@@ -21,10 +21,8 @@ import java.io.IOException;
 public class MazeController {
 
 
-
-
     @FXML
-     public Pane roboPane = new Pane();
+    public Pane roboPane = new Pane();
 
     @FXML
     public Pane jeepWrangler = new Pane();
@@ -60,7 +58,8 @@ public class MazeController {
     private Button mazeButton2;
 
     /**
-     *  Allows button to switch from Main Menu (mainMenu.fxml) and Maze 1 (mazeView1.fxml)
+     * Allows button to switch from Main Menu (mainMenu.fxml) and Maze 1 (mazeView1.fxml)
+     *
      * @param event
      * @throws IOException
      */
@@ -99,11 +98,11 @@ public class MazeController {
         }
 
 
-
     }
 
     /**
      * Allows button to switch from Main Menu (mainMenu.fxml) and Maze 2 (mazeView2.fxml)
+     *
      * @param event
      * @throws IOException
      */
@@ -141,6 +140,11 @@ public class MazeController {
             System.out.println("Scene is null, cannot add key filter.");
         }
     }
+    /**
+     * when car button 1 is pressed makes a new tab with easy maze for car
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onCarMaze1ButtonClick(ActionEvent event) throws IOException {
         for (Tab existingTab : tabPane.getTabs()) {
@@ -176,6 +180,11 @@ public class MazeController {
 
     }
 
+    /**
+     * when car button 2 is pressed makes a new tab with hard maze for car
+     * @param event
+     * @throws IOException
+     */
     @FXML
     void onCarMaze2ButtonClick(ActionEvent event) throws IOException {
         for (Tab existingTab : tabPane.getTabs()) {
@@ -216,7 +225,7 @@ public class MazeController {
      * Allows 'back' button to switch from maze1 -> main menu
      */
     @FXML
-    private void backToMainMenu(){
+    private void backToMainMenu() {
         tabPane.getSelectionModel().select(mainMenuTab);
 
         //filter tab pane to not move with key inputs
@@ -228,6 +237,9 @@ public class MazeController {
 
     }
 
+    /**
+     * set the car model up to receive input
+     */
     @FXML
     public void initializeCar() {
 
@@ -239,20 +251,31 @@ public class MazeController {
 
     }
 
+    /**
+     * uses wasd key input to move the car pane around
+     * @param event
+     */
     private void handleCarKeyPress(KeyEvent event) {
         System.out.println("Key pressed: " + event.getCode());
 
         if (event.getCode() == KeyCode.D) {
             jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() + 10); // Move right by 10 pixels
+            jeepWrangler.setRotate(270);
         } else if (event.getCode() == KeyCode.A) {
-            jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() - 10); // Move left by 10 pixels
+            jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() - 10);// Move left by 10 pixels
+            jeepWrangler.setRotate(90);
         } else if (event.getCode() == KeyCode.W) {
             jeepWrangler.setLayoutY(jeepWrangler.getLayoutY() - 10); // Move up by 10 pixels
+            jeepWrangler.setRotate(180);
         } else if (event.getCode() == KeyCode.S) {
             jeepWrangler.setLayoutY(jeepWrangler.getLayoutY() + 10); // Move down by 10 pixels
+            jeepWrangler.setRotate(0);
         }
     }
 
+    /**
+     * set the robot model up to receive input
+     */
     @FXML
     public void initialize() {
 
@@ -264,8 +287,10 @@ public class MazeController {
 
     }
 
-
-
+    /**
+     * allows robot to receive keyboard inputs
+     * @param event
+     */
     private void handleKeyPress(KeyEvent event) {
         System.out.println("Key pressed: " + event.getCode());
 
@@ -279,13 +304,6 @@ public class MazeController {
             roboPane.setLayoutY(roboPane.getLayoutY() + 10); // Move down by 10 pixels
         }
     }
-
-
-
-
-
-
-
 
 
 }
