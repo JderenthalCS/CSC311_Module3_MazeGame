@@ -24,8 +24,8 @@
 
                   <Button fx:id="mazeButton1" onAction="#mazeButton1Click" prefHeight="29.0" prefWidth="95.0" text="Load Maze 1" />
                   <Button fx:id="mazeButton2" onAction="#mazeButton2Click" prefHeight="31.0" prefWidth="94.0" text="Load Maze 2" />
-                  <Button fx:id="carMazeButton" layoutX="363.0" layoutY="391.0" onAction="#onCarMaze1ButtonClick" prefHeight="31.0" prefWidth="119.0" text="Load Car Maze 1" />
-                  <Button fx:id="carMazeButton2" layoutX="351.0" layoutY="422.0" onAction="#onCarMaze2ButtonClick" prefHeight="31.0" prefWidth="119.0" text="Load Car Maze 2" />
+                  <Button fx:id="carMazeBtn1" layoutX="363.0" layoutY="391.0" onAction="#onCarMaze1ButtonClick" prefHeight="31.0" prefWidth="127.0" text="Load Car Maze 1" />
+                  <Button fx:id="carMazeBtn2" layoutX="347.0" layoutY="422.0" onAction="#onCarMaze2ButtonClick" prefHeight="31.0" prefWidth="127.0" text="Load Car Maze 2" />
                </children>
             </VBox>
          </content>
