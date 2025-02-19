@@ -30,32 +30,8 @@ public class MazeController {
     @FXML
     private TabPane tabPane = new TabPane();
 
-
-    @FXML
-    private Button carMazeButton;
-
-
     @FXML
     private Tab mainMenuTab;
-
-    @FXML
-    private Tab maze1Tab;
-
-    @FXML
-    private Tab maze2Tab;
-
-    @FXML
-    public ImageView m2Robot;
-
-    @FXML
-    public ImageView m1Robot;
-
-
-    @FXML
-    private Button mazeButton1;
-
-    @FXML
-    private Button mazeButton2;
 
     /**
      * Allows button to switch from Main Menu (mainMenu.fxml) and Maze 1 (mazeView1.fxml)
