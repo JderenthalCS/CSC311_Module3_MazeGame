@@ -1,6 +1,5 @@
 package com.example.csc311maze;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 
@@ -19,9 +18,6 @@ import javafx.scene.input.KeyCode;
 import java.io.IOException;
 
 public class MazeController {
-
-
-
 
     @FXML
      public Pane roboPane = new Pane();
@@ -45,12 +41,13 @@ public class MazeController {
     @FXML
     public ImageView m1Robot;
 
-
     @FXML
     private Button mazeButton1;
 
     @FXML
     private Button mazeButton2;
+
+    private CollisionDetection collisionDetection;
 
     /**
      *  Allows button to switch from Main Menu (mainMenu.fxml) and Maze 1 (mazeView1.fxml)
@@ -69,6 +66,7 @@ public class MazeController {
 
         // Load FXML for Maze 2
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView1.fxml"));
+        fxmlLoader.setController(this);
         Parent tabContent1 = fxmlLoader.load();
 
         // Create a new Tab
@@ -78,6 +76,12 @@ public class MazeController {
         // Add the tab and select it
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
+
+        //Create collision detector
+        if(tabContent1 instanceof AnchorPane){
+            collisionDetection = new CollisionDetection((AnchorPane) tabContent1,roboPane);
+            roboPane.requestFocus();
+        }
 
 //        // Apply key event filter to the SCENE to prevent arrow key scrolling
         Scene scene = tabPane.getScene();
@@ -112,6 +116,7 @@ public class MazeController {
 
         // Load FXML for Maze 2
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView2.fxml"));
+        fxmlLoader.setController(this);
         Parent tabContent2 = fxmlLoader.load();
 
         // Create a new Tab
@@ -121,6 +126,11 @@ public class MazeController {
         // Add the tab and select it
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
+
+        if(tabContent2 instanceof AnchorPane){
+            collisionDetection = new CollisionDetection((AnchorPane) tabContent2,roboPane);
+            roboPane.requestFocus();
+        }
 
         // Apply key event filter to the SCENE to prevent arrow key scrolling
         Scene scene = tabPane.getScene();
@@ -161,23 +171,32 @@ public class MazeController {
         // Set the key event handler on the mazePane (or root node)
         roboPane.setOnKeyPressed(event -> handleKeyPress(event));
 
-
-
-
     }
 
     @FXML
     private void handleKeyPress(KeyEvent event) {
         System.out.println("Key pressed: " + event.getCode());
+        double changeX = 0;
+        double changeY = 0;
 
         if (event.getCode() == KeyCode.D) {
-            roboPane.setLayoutX(roboPane.getLayoutX() + 10); // Move right by 10 pixels
+            changeX = 10;
+            //roboPane.setLayoutX(roboPane.getLayoutX() + 10); // Move right by 10 pixels
         } else if (event.getCode() == KeyCode.A) {
-            roboPane.setLayoutX(roboPane.getLayoutX() - 10); // Move left by 10 pixels
+            changeX = -10;
+            //roboPane.setLayoutX(roboPane.getLayoutX() - 10); // Move left by 10 pixels
         } else if (event.getCode() == KeyCode.W) {
-            roboPane.setLayoutY(roboPane.getLayoutY() - 10); // Move up by 10 pixels
+            changeY = -10;
+            //roboPane.setLayoutY(roboPane.getLayoutY() - 10); // Move up by 10 pixels
         } else if (event.getCode() == KeyCode.S) {
-            roboPane.setLayoutY(roboPane.getLayoutY() + 10); // Move down by 10 pixels
+            changeY = 10;
+            //roboPane.setLayoutY(roboPane.getLayoutY() + 10); // Move down by 10 pixels
+        }
+        //If getCollision returns false, Pane(with ImageView) halts at current position
+        if(!(collisionDetection.getCollision(changeX, changeY))) {
+            roboPane.setLayoutX(roboPane.getLayoutX() + changeX);
+            roboPane.setLayoutY(roboPane.getLayoutY() + changeY);
+
         }
     }
 

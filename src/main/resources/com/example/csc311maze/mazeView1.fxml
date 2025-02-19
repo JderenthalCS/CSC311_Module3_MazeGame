@@ -5,11 +5,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <!--Maze Image-->
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311maze.MazeController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="mazeImageView" fitHeight="600.0" fitWidth="800.0" preserveRatio="false">
          <image>
@@ -33,5 +34,13 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="600.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="600.0" layoutX="798.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="5.0" layoutX="5.0" stroke="TRANSPARENT" strokeType="INSIDE" width="800.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="5.0" layoutY="598.0" stroke="TRANSPARENT" strokeType="INSIDE" width="800.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="475.0" layoutX="131.0" layoutY="5.0" stroke="TRANSPARENT" strokeType="INSIDE" width="123.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="224.0" layoutX="393.0" layoutY="5.0" stroke="TRANSPARENT" strokeType="INSIDE" width="96.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="243.0" layoutX="393.0" layoutY="356.0" stroke="TRANSPARENT" strokeType="INSIDE" width="289.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="254.0" layoutX="599.0" layoutY="103.0" stroke="TRANSPARENT" strokeType="INSIDE" width="84.0" />
    </children>
 </AnchorPane>
