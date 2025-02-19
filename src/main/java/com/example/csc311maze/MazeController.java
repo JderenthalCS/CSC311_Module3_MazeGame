@@ -203,7 +203,7 @@ public class MazeController {
         jeepWrangler.setOnKeyPressed(event -> handleCarKeyPress(event));
 
     }
-    @FXML
+
     private void handleCarKeyPress(KeyEvent event) {
         System.out.println("Key pressed: " + event.getCode());
 
