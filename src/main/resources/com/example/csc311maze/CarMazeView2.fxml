@@ -18,9 +18,9 @@
                 <Image url="@../../../hardMaze.png" />
             </image>
         </ImageView>
-        <Pane fx:id="jeepWrangler" focusTraversable="true" layoutX="6.0" layoutY="348.0" maxHeight="67.0" maxWidth="71.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#initializeCar" prefHeight="67.0" prefWidth="71.0" scaleX="0.45" scaleY="0.45" scaleZ="0.45">
+        <Pane fx:id="jeepWrangler" focusTraversable="true" layoutX="1.0" layoutY="363.0" onKeyPressed="#initializeCar" prefHeight="29.0" prefWidth="27.0" scaleX="0.25" scaleY="0.25" scaleZ="0.25">
             <children>
-                <Rectangle arcHeight="10.0" arcWidth="5.0" fill="#313f4d" height="62.0" layoutX="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="60.0" />
+                <Rectangle arcHeight="10.0" arcWidth="5.0" fill="#313f4d" height="59.0" layoutX="5.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="60.0" />
                 <Line endX="24.0" endY="-3.0" layoutX="50.0" layoutY="-10.0" startX="24.0" startY="51.0" />
                 <Ellipse layoutX="65.0" layoutY="64.0" radiusX="9.0" radiusY="31.0" stroke="BLACK" strokeType="INSIDE" />
                 <Ellipse layoutX="5.0" layoutY="65.0" radiusX="9.0" radiusY="31.0" stroke="BLACK" strokeType="INSIDE" />

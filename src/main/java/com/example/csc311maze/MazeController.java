@@ -351,9 +351,9 @@ public class MazeController {
     private boolean isBluePixel(double x, double y) {
         ImageView activeMaze = getActiveMazeImageView();
 
-
         if (activeMaze.getImage() == null) return false;
         PixelReader pixelReader = activeMaze.getImage().getPixelReader();
+
         int imageWidth = (int) activeMaze.getImage().getWidth();
         int imageHeight = (int) activeMaze.getImage().getHeight();
 
@@ -369,7 +369,7 @@ public class MazeController {
 
         // Read pixel color
         Color color = pixelReader.getColor(imageX, imageY);
-        return color.getBlue() > 0.5 && color.getRed() < 0.3 && color.getGreen() < 0.3;
+        return color.getBlue() > 0.5 && color.getRed() < 0.5 && color.getGreen() < 0.5;
     }
 
     private ImageView getActiveMazeImageView() {
@@ -389,11 +389,6 @@ public class MazeController {
             return mazeImageView2;
         }
 
-//        if (tabName.equals("Easy Maze") || tabName.equals("Easy Car Maze")) {
-//            return mazeImageView;
-//        } else if (tabName.equals("Hard Maze") || tabName.equals("Hard Car Maze")) {
-//            return mazeImageView2;
-//        }
 
         System.out.println("Warning: Unrecognized tab name: " + tabName);
         return null;
