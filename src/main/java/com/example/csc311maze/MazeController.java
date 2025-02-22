@@ -11,11 +11,14 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.image.PixelReader;
 
 
+import java.awt.*;
 import java.io.IOException;
 
 public class MazeController {
@@ -33,6 +36,11 @@ public class MazeController {
     @FXML
     private Tab mainMenuTab;
 
+    @FXML
+    private ImageView mazeImageView;
+    @FXML
+    private ImageView mazeImageView2;
+
     /**
      * Allows button to switch from Main Menu (mainMenu.fxml) and Maze 1 (mazeView1.fxml)
      *
@@ -47,10 +55,14 @@ public class MazeController {
                 tabPane.getSelectionModel().select(existingTab); // Select existing tab
                 return;
             }
+
+
         }
+
 
         // Load FXML for Maze 1
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView1.fxml"));
+        fxmlLoader.setController(this);
         Parent tabContent1 = fxmlLoader.load();
 
         // Create a new Tab
@@ -94,6 +106,7 @@ public class MazeController {
 
         // Load FXML for Maze 2
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView2.fxml"));
+        fxmlLoader.setController(this);
         Parent tabContent2 = fxmlLoader.load();
 
         // Create a new Tab
@@ -116,8 +129,10 @@ public class MazeController {
             System.out.println("Scene is null, cannot add key filter.");
         }
     }
+
     /**
      * when car button 1 is pressed makes a new tab with easy maze for car
+     *
      * @param event
      * @throws IOException
      */
@@ -132,6 +147,7 @@ public class MazeController {
 
         // Load FXML for Car Maze 1
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CarMazeView1.fxml"));
+        fxmlLoader.setController(this);
         Parent carContent = fxmlLoader.load();
 
         // Create a new Tab
@@ -158,6 +174,7 @@ public class MazeController {
 
     /**
      * when car button 2 is pressed makes a new tab with hard maze for car
+     *
      * @param event
      * @throws IOException
      */
@@ -172,6 +189,7 @@ public class MazeController {
 
         // Load FXML for Car Maze 1
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CarMazeView2.fxml"));
+        fxmlLoader.setController(this);
         Parent carContent = fxmlLoader.load();
 
         // Create a new Tab
@@ -229,23 +247,49 @@ public class MazeController {
 
     /**
      * uses wasd key input to move the car pane around
+     *
      * @param event
      */
     private void handleCarKeyPress(KeyEvent event) {
         System.out.println("Key pressed: " + event.getCode());
 
+        // Movement increment
+        double changeX = 0;
+        double changeY = 0;
+
+        // Determine movement direction based on key press
         if (event.getCode() == KeyCode.D) {
-            jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() + 10); // Move right by 10 pixels
-            jeepWrangler.setRotate(270); //rotation for the car on key press
+            changeX = 10; // Move right
         } else if (event.getCode() == KeyCode.A) {
-            jeepWrangler.setLayoutX(jeepWrangler.getLayoutX() - 10);// Move left by 10 pixels
-            jeepWrangler.setRotate(90);//rotation for the car on key press
+            changeX = -10; // Move left
         } else if (event.getCode() == KeyCode.W) {
-            jeepWrangler.setLayoutY(jeepWrangler.getLayoutY() - 10); // Move up by 10 pixels
-            jeepWrangler.setRotate(180);//rotation for the car on key press
+            changeY = -10; // Move up
         } else if (event.getCode() == KeyCode.S) {
-            jeepWrangler.setLayoutY(jeepWrangler.getLayoutY() + 10); // Move down by 10 pixels
-            jeepWrangler.setRotate(0);//rotation for the car on key press
+            changeY = 10; // Move down
+        }
+
+        // Calculate the new position based on the current position and movement
+        double newX = jeepWrangler.getLayoutX() + changeX;
+        double newY = jeepWrangler.getLayoutY() + changeY;
+
+        // Check for collisions before moving
+        if (!isColliding(newX, newY, jeepWrangler.getWidth(), jeepWrangler.getHeight())) {
+            // If no collision, update the Wrangler's position
+            jeepWrangler.setLayoutX(newX);
+            jeepWrangler.setLayoutY(newY);
+
+            // Optionally update rotation to match the movement direction
+            if (event.getCode() == KeyCode.D) {
+                jeepWrangler.setRotate(270); // Rotate to the right
+            } else if (event.getCode() == KeyCode.A) {
+                jeepWrangler.setRotate(90); // Rotate to the left
+            } else if (event.getCode() == KeyCode.W) {
+                jeepWrangler.setRotate(180); // Rotate upwards
+            } else if (event.getCode() == KeyCode.S) {
+                jeepWrangler.setRotate(0); // Rotate downwards
+            }
+        } else {
+            System.out.println("Collision detected, cannot move.");
         }
     }
 
@@ -265,22 +309,97 @@ public class MazeController {
 
     /**
      * allows robot to receive keyboard inputs
+     *
      * @param event
      */
     private void handleKeyPress(KeyEvent event) {
         System.out.println("Key pressed: " + event.getCode());
+        double changeX = 0;
+        double changeY = 0;
 
         if (event.getCode() == KeyCode.D) {
-            roboPane.setLayoutX(roboPane.getLayoutX() + 10); // Move right by 10 pixels
+            changeX = 10; // Move right
         } else if (event.getCode() == KeyCode.A) {
-            roboPane.setLayoutX(roboPane.getLayoutX() - 10); // Move left by 10 pixels
+            changeX = -10; // Move left
         } else if (event.getCode() == KeyCode.W) {
-            roboPane.setLayoutY(roboPane.getLayoutY() - 10); // Move up by 10 pixels
+            changeY = -10; // Move up
         } else if (event.getCode() == KeyCode.S) {
-            roboPane.setLayoutY(roboPane.getLayoutY() + 10); // Move down by 10 pixels
+            changeY = 10; // Move down
+        }
+
+//new position
+        double newX = roboPane.getLayoutX() + changeX;
+        double newY = roboPane.getLayoutY() + changeY;
+
+// Check collision at multiple points (edges & center)
+        if (!isColliding(newX, newY, roboPane.getWidth(), roboPane.getHeight())) {
+            roboPane.setLayoutX(newX);
+            roboPane.setLayoutY(newY);
         }
     }
 
+    private boolean isColliding(double x, double y, double width, double height) {
+        // Check multiple points (center, corners, and edges)
+        return isBluePixel(x, y) ||                     // Top-left
+                isBluePixel(x + width, y) ||             // Top-right
+                isBluePixel(x, y + height) ||            // Bottom-left
+                isBluePixel(x + width, y + height) ||    // Bottom-right
+                isBluePixel(x + width / 2, y + height / 2); // Center
+    }
 
+
+    private boolean isBluePixel(double x, double y) {
+        ImageView activeMaze = getActiveMazeImageView();
+
+
+        if (activeMaze.getImage() == null) return false;
+        PixelReader pixelReader = activeMaze.getImage().getPixelReader();
+        int imageWidth = (int) activeMaze.getImage().getWidth();
+        int imageHeight = (int) activeMaze.getImage().getHeight();
+
+        double viewWidth = activeMaze.getFitWidth();
+        double viewHeight = activeMaze.getFitHeight();
+
+        // Convert scene coordinates to image coordinates
+        int imageX = (int) ((x / viewWidth) * imageWidth);
+        int imageY = (int) ((y / viewHeight) * imageHeight);
+
+        // Ensure coordinates are within bounds
+        if (imageX < 0 || imageY < 0 || imageX >= imageWidth || imageY >= imageHeight) return false;
+
+        // Read pixel color
+        Color color = pixelReader.getColor(imageX, imageY);
+        return color.getBlue() > 0.5 && color.getRed() < 0.3 && color.getGreen() < 0.3;
+    }
+
+    private ImageView getActiveMazeImageView() {
+        Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+        if (selectedTab == null) {
+            System.out.println("Warning: No tab is selected!");
+            return null;
+        }
+
+        String tabName = selectedTab.getText();
+        System.out.println("Selected Tab: " + tabName);
+
+        if(selectedTab.getText().equals("Easy Maze") || selectedTab.getText().equals("Easy Car Maze")){
+            return mazeImageView;
+        }
+        else if(selectedTab.getText().equals("Hard Maze") || selectedTab.getText().equals("Hard Car Maze")){
+            return mazeImageView2;
+        }
+
+//        if (tabName.equals("Easy Maze") || tabName.equals("Easy Car Maze")) {
+//            return mazeImageView;
+//        } else if (tabName.equals("Hard Maze") || tabName.equals("Hard Car Maze")) {
+//            return mazeImageView2;
+//        }
+
+        System.out.println("Warning: Unrecognized tab name: " + tabName);
+        return null;
+    }
 }
+
+
+
 
