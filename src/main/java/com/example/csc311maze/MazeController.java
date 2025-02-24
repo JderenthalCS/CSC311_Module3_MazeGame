@@ -399,12 +399,21 @@ public class MazeController {
     // This will create an instance of MazeSolver
     @FXML
     private void onSolveMazeButtonClick(ActionEvent event) {
+        // The robot starting position will be needed
+        int startRow = 0;
+        int startCol = 0;
+
         Image currentMazeImage = null;
         String selectedTab = tabPane.getSelectionModel().getSelectedItem().getText();
-        if (selectedTab.equals("Easy Maze") || selectedTab.equals("Easy Car Maze")) {
+        if (selectedTab.equals("Easy Maze")) {
             currentMazeImage = mazeImageView.getImage();
-        } else if (selectedTab.equals("Hard Maze") || selectedTab.equals("Hard Car Maze")) {
+            startRow = 5;
+            startCol = 5;
+
+        } else if (selectedTab.equals("Hard Maze")) {
             currentMazeImage = mazeImageView2.getImage();
+            startRow = 52;
+            startCol = 2;
         }
 
         if (currentMazeImage == null) {
@@ -412,13 +421,10 @@ public class MazeController {
             return;
         }
 
-        MazeSolver solver = new MazeSolver(currentMazeImage);
+        MazeSolver solver = new MazeSolver(currentMazeImage, selectedTab);
         solver.printMazeGrid();
 
 
-        int rows = (int) (currentMazeImage.getHeight() / 30);
-        int cols = (int) (currentMazeImage.getWidth() / 30);
-        int startRow = 0, startCol = 0;
 
         List<int[]> path = solver.solveMazeBFS(startRow, startCol);
         if (path == null) {
@@ -426,10 +432,15 @@ public class MazeController {
             return;
         }
 
+        ImageView activeMazeView = getActiveMazeImageView();
+        double scaleX = activeMazeView.getFitWidth() / activeMazeView.getImage().getWidth();
+        double scaleY = activeMazeView.getFitHeight() / activeMazeView.getImage().getHeight();
+        int cellSize = solver.getCellSize();
+
         new Thread(() -> {
             for (int[] cell : path) {
-                double xPos = cell[1] * 7;  // Column to X coordinate
-                double yPos = cell[0] * 7;  // Row to Y coordinate
+                double xPos = cell[1] * cellSize * scaleX;  // Column to X coordinate
+                double yPos = cell[0] * cellSize * scaleY;  // Row to Y coordinate
 
                 javafx.application.Platform.runLater(() -> {
                     roboPane.setLayoutX(xPos);
