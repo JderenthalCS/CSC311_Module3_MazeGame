@@ -17,9 +17,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.PixelReader;
 
-
+import javafx.scene.image.Image;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
 public class MazeController {
 
@@ -393,6 +394,58 @@ public class MazeController {
         System.out.println("Warning: Unrecognized tab name: " + tabName);
         return null;
     }
+
+
+    // This will create an instance of MazeSolver
+    @FXML
+    private void onSolveMazeButtonClick(ActionEvent event) {
+        Image currentMazeImage = null;
+        String selectedTab = tabPane.getSelectionModel().getSelectedItem().getText();
+        if (selectedTab.equals("Easy Maze") || selectedTab.equals("Easy Car Maze")) {
+            currentMazeImage = mazeImageView.getImage();
+        } else if (selectedTab.equals("Hard Maze") || selectedTab.equals("Hard Car Maze")) {
+            currentMazeImage = mazeImageView2.getImage();
+        }
+
+        if (currentMazeImage == null) {
+            System.out.println("Maze image not found. Cannot solve maze.");
+            return;
+        }
+
+        MazeSolver solver = new MazeSolver(currentMazeImage);
+        solver.printMazeGrid();
+
+
+        int rows = (int) (currentMazeImage.getHeight() / 30);
+        int cols = (int) (currentMazeImage.getWidth() / 30);
+        int startRow = 0, startCol = 0;
+
+        List<int[]> path = solver.solveMazeBFS(startRow, startCol);
+        if (path == null) {
+            System.out.println("No solution found for the maze.");
+            return;
+        }
+
+        new Thread(() -> {
+            for (int[] cell : path) {
+                double xPos = cell[1] * 7;  // Column to X coordinate
+                double yPos = cell[0] * 7;  // Row to Y coordinate
+
+                javafx.application.Platform.runLater(() -> {
+                    roboPane.setLayoutX(xPos);
+                    roboPane.setLayoutY(yPos);
+                });
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
 }
 
 
