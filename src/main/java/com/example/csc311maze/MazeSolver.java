@@ -3,13 +3,14 @@ package com.example.csc311maze;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
+
 import java.util.*;
 
 public class MazeSolver {
     private final Image maze;
     private final int cellSize;
-    private int[][] mazeGrid;
-    private int[] endPoint;
+    private final int[][] mazeGrid;
+    private final int[] endPoint;
 
     public MazeSolver(Image maze, String selectedTab) {
         this.maze = maze;
@@ -64,7 +65,7 @@ public class MazeSolver {
         } else if (tab.equals("Hard Maze")) {
             return new int[]{51, 118};
         }
-        return new int[]{0,0};
+        return new int[]{0, 0};
     }
 
     // Breadth First Search to find path
@@ -81,7 +82,7 @@ public class MazeSolver {
         visited[startRow][startCol] = true;
         queue.offer(new Cell(startRow, startCol, null));
 
-        int[][] directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+        int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
         while (!queue.isEmpty()) {
             Cell current = queue.poll();
@@ -124,6 +125,7 @@ public class MazeSolver {
         int row;
         int col;
         Cell parent;
+
         Cell(int row, int col, Cell parent) {
             this.row = row;
             this.col = col;

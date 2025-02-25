@@ -10,7 +10,7 @@
    <children>
       <ImageView fx:id="mazeImageView2" fitHeight="600.0" fitWidth="800.0" layoutX="32.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../../hardMaze.png" />
+            <Image url="@Images/hardMaze.png" />
          </image>
       </ImageView>
       <Pane fx:id="roboPane" layoutX="1.0" layoutY="363.0" onKeyPressed="#initialize" prefHeight="29.0" prefWidth="27.0">
@@ -19,7 +19,7 @@
             <!--Robot Image-->
             <ImageView fx:id="m2Robot" fitHeight="25.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../robot.png" />
+                  <Image url="@Images/robot.png" />
                </image>
             </ImageView>
          </children>

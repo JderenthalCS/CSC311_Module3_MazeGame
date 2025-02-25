@@ -5,10 +5,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * This class is not used. It was made prior to pixel readers' implementation
+ */
 public class CollisionDetection {
 
-    private AnchorPane anchorPane;
-    private Pane roboPane;
+    private final AnchorPane anchorPane;
+    private final Pane roboPane;
 
     /**
      * CollisionDetection constructor with specified anchorPane and pane that contains imageView
@@ -48,8 +51,7 @@ public class CollisionDetection {
             if (object == roboPane) continue;
 
             //If object detected is a rectangle from javafxRectangle class, declare it a wall
-            if (object instanceof Rectangle) {
-                Rectangle wall = (Rectangle) object;
+            if (object instanceof Rectangle wall) {
 
                 //If the bounds of Pane intersect with the bounds of the declared walls(Rectangles) collision is true
                 if (roboPane.getBoundsInParent().intersects(wall.getBoundsInParent())) {

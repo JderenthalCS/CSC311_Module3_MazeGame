@@ -15,7 +15,7 @@
     <children>
         <ImageView fx:id="mazeImageView2" fitHeight="600.0" fitWidth="800.0" preserveRatio="false">
             <image>
-                <Image url="@../../../hardMaze.png" />
+                <Image url="@Images/hardMaze.png" />
             </image>
         </ImageView>
         <Pane fx:id="jeepWrangler" focusTraversable="true" layoutX="1.0" layoutY="363.0" onKeyPressed="#initializeCar" prefHeight="29.0" prefWidth="27.0" scaleX="0.25" scaleY="0.25" scaleZ="0.25">

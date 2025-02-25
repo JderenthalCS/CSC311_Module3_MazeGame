@@ -1,27 +1,26 @@
 package com.example.csc311maze;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.image.PixelReader;
-
 import javafx.scene.image.Image;
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class holds all the action events that occur within the application
+ *
+ */
 public class MazeController {
 
 
@@ -39,14 +38,16 @@ public class MazeController {
 
     @FXML
     private ImageView mazeImageView;
+
     @FXML
     private ImageView mazeImageView2;
+
 
     /**
      * Allows button to switch from Main Menu (mainMenu.fxml) and Maze 1 (mazeView1.fxml)
      *
-     * @param event
-     * @throws IOException
+     * @param event Button click
+     * @throws IOException See IOException class
      */
     @FXML
     void mazeButton1Click(ActionEvent event) throws IOException {
@@ -56,10 +57,7 @@ public class MazeController {
                 tabPane.getSelectionModel().select(existingTab); // Select existing tab
                 return;
             }
-
-
         }
-
 
         // Load FXML for Maze 1
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mazeView1.fxml"));
@@ -85,15 +83,13 @@ public class MazeController {
         } else {
             System.out.println("Scene is null, cannot add key filter.");
         }
-
-
     }
 
     /**
      * Allows button to switch from Main Menu (mainMenu.fxml) and Maze 2 (mazeView2.fxml)
      *
-     * @param event
-     * @throws IOException
+     * @param event Tab button click
+     * @throws IOException See IOException
      */
     @FXML
     void mazeButton2Click(ActionEvent event) throws IOException {
@@ -132,9 +128,9 @@ public class MazeController {
     }
 
     /**
-     * when car button 1 is pressed makes a new tab with easy maze for car
+     * When car button 1 is pressed, this method makes a new tab with easy maze for car
      *
-     * @param event
+     * @param event  Car button 1 clicked
      * @throws IOException
      */
     @FXML
@@ -159,7 +155,7 @@ public class MazeController {
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
 
-//        // Apply key event filter to the SCENE to prevent arrow key scrolling
+        // Apply key event filter to the SCENE to prevent arrow key scrolling
         Scene scene = tabPane.getScene();
         if (scene != null) {
             scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
@@ -174,7 +170,7 @@ public class MazeController {
     }
 
     /**
-     * when car button 2 is pressed makes a new tab with hard maze for car
+     * When car button 2 is pressed this method makes a new tab with hard maze for car
      *
      * @param event
      * @throws IOException
@@ -201,7 +197,7 @@ public class MazeController {
         tabPane.getTabs().add(tab);
         tabPane.getSelectionModel().select(tab);
 
-//        // Apply key event filter to the SCENE to prevent arrow key scrolling
+        // Apply key event filter to the SCENE to prevent arrow key scrolling
         Scene scene = tabPane.getScene();
         if (scene != null) {
             scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
@@ -215,9 +211,9 @@ public class MazeController {
 
     }
 
-
     /**
      * Allows 'back' button to switch from maze1 -> main menu
+     *
      */
     @FXML
     private void backToMainMenu() {
@@ -233,7 +229,8 @@ public class MazeController {
     }
 
     /**
-     * set the car model up to receive input
+     * This method allows for the car model to receive input
+     *
      */
     @FXML
     public void initializeCar() {
@@ -247,9 +244,11 @@ public class MazeController {
     }
 
     /**
-     * uses wasd key input to move the car pane around
      *
-     * @param event
+     * This method will allow for the 'W','A','S','D' keys to be detected
+     * on press and change the direction of the respective sprite
+     *
+     * @param event Key press
      */
     private void handleCarKeyPress(KeyEvent event) {
         System.out.println("Key pressed: " + event.getCode());
@@ -295,7 +294,8 @@ public class MazeController {
     }
 
     /**
-     * set the robot model up to receive input
+     * This method allows for the car model to receive input
+     *
      */
     @FXML
     public void initialize() {
@@ -309,7 +309,7 @@ public class MazeController {
     }
 
     /**
-     * allows robot to receive keyboard inputs
+     * This method will detect keys presses for sprite movement
      *
      * @param event
      */
@@ -328,18 +328,28 @@ public class MazeController {
             changeY = 10; // Move down
         }
 
-//new position
+        //new position
         double newX = roboPane.getLayoutX() + changeX;
         double newY = roboPane.getLayoutY() + changeY;
 
-// Check collision at multiple points (edges & center)
+        // Check collision at multiple points (edges & center)
         if (!isColliding(newX, newY, roboPane.getWidth(), roboPane.getHeight())) {
             roboPane.setLayoutX(newX);
             roboPane.setLayoutY(newY);
         }
     }
 
+    /**
+     * This method will detect pixels that are blue in relation to the perimeter of the roboPane/JeepWrangler.
+     *
+     * @param x      The potential next x coordinate of the roboPane/JeepWrangler
+     * @param y      The potential next y coordinate of the roboPane/JeepWrangler
+     * @param width  Width of the roboPane/JeepWrangler
+     * @param height Height of the roboPane/JeepWrangler
+     * @return boolean dependent on pixel color in relation to sprite
+     */
     private boolean isColliding(double x, double y, double width, double height) {
+
         // Check multiple points (center, corners, and edges)
         return isBluePixel(x, y) ||                     // Top-left
                 isBluePixel(x + width, y) ||             // Top-right
@@ -348,7 +358,13 @@ public class MazeController {
                 isBluePixel(x + width / 2, y + height / 2); // Center
     }
 
-
+    /**
+     * This method will detect all pixels and return true if the pixel matches to RGB values of BLUE
+     *
+     * @param x The potential next x coordinate of the current imageView
+     * @param y The potential next y coordinate of the current imageView
+     * @return boolean value dependent on pixel color
+     */
     private boolean isBluePixel(double x, double y) {
         ImageView activeMaze = getActiveMazeImageView();
 
@@ -373,6 +389,11 @@ public class MazeController {
         return color.getBlue() > 0.5 && color.getRed() < 0.5 && color.getGreen() < 0.5;
     }
 
+    /**
+     * This method will return the current imageView for the current tab
+     *
+     * @return ImageView object
+     */
     private ImageView getActiveMazeImageView() {
         Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
         if (selectedTab == null) {
@@ -381,24 +402,26 @@ public class MazeController {
         }
 
         String tabName = selectedTab.getText();
-        System.out.println("Selected Tab: " + tabName);
+//      System.out.println("Selected Tab: " + tabName);
 
-        if(selectedTab.getText().equals("Easy Maze") || selectedTab.getText().equals("Easy Car Maze")){
+        if (selectedTab.getText().equals("Easy Maze") || selectedTab.getText().equals("Easy Car Maze")) {
             return mazeImageView;
-        }
-        else if(selectedTab.getText().equals("Hard Maze") || selectedTab.getText().equals("Hard Car Maze")){
+        } else if (selectedTab.getText().equals("Hard Maze") || selectedTab.getText().equals("Hard Car Maze")) {
             return mazeImageView2;
         }
-
 
         System.out.println("Warning: Unrecognized tab name: " + tabName);
         return null;
     }
 
-
-    // This will create an instance of MazeSolver
+    /**
+     * This method will create a MazeSolver object once the "Solve Maze" button is clicked
+     *
+     * @param event button click
+     */
     @FXML
     private void onSolveMazeButtonClick(ActionEvent event) {
+
         // The robot starting position will be needed
         int startRow = 0;
         int startCol = 0;
@@ -423,7 +446,6 @@ public class MazeController {
 
         MazeSolver solver = new MazeSolver(currentMazeImage, selectedTab);
         solver.printMazeGrid();
-
 
 
         List<int[]> path = solver.solveMazeBFS(startRow, startCol);
@@ -455,8 +477,6 @@ public class MazeController {
             }
         }).start();
     }
-
-
 }
 
 
